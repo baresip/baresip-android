@@ -14,16 +14,20 @@ PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.7/prebuilt
 BIN       := $(PREBUILT)/darwin-x86_64/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
 RANLIB    := $(BIN)/arm-linux-androideabi-ranlib
+AR        := $(BIN)/arm-linux-androideabi-ar
 ADB       := $(SDK_PATH)/platform-tools/adb
+PWD       := $(shell pwd)
 
 # Compiler and Linker Flags
 CFLAGS    := \
 	-I$(SYSROOT)/include/ \
+	-I$(PWD)/openssl/include \
 	-Wno-cast-align \
 	-Wno-shadow \
 	-Wno-nested-externs \
 	-march=armv7-a
-LFLAGS    := -L$(SYSROOT)/lib/
+LFLAGS    := -L$(SYSROOT)/lib/ \
+	-L$(PWD)/openssl
 LFLAGS    += --sysroot=$(NDK_PATH)/platforms/android-14/arch-arm
 
 
@@ -40,7 +44,8 @@ COMMON_FLAGS := CC=$(CC) \
 		HAVE_INET_PTON=1 \
 		HAVE_INET6= \
 		PEDANTIC= \
-		OS=linux ARCH=arm
+		OS=linux ARCH=arm \
+		USE_OPENSSL=yes
 
 default:	retest baresip
 
@@ -72,3 +77,10 @@ clean:
 
 info:
 	make $@ -C re $(COMMON_FLAGS)
+
+.PHONY: openssl
+openssl:
+	cd openssl && \
+		CC=$(CC) RANLIB=$(RANLIB) AR=$(AR) \
+		./Configure android-armv7 && \
+		ANDROID_DEV=$(SYSROOT) make build_libs
