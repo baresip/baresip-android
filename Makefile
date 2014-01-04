@@ -1,17 +1,19 @@
 #
 # Makefile
 #
-# Copyright (C) 2013 Creytiv.com
+# Copyright (C) 2014 Creytiv.com
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := /Users/alfredh/android/android-ndk-r9c
-SDK_PATH  := /Users/alfredh/android/android-sdk-mac_x86
+NDK_PATH  := $(HOME)/android/android-ndk-r9c
+SDK_PATH  := $(HOME)/android/android-sdk-mac_x86
+HOST_OS   := linux-x86_64
+#HOST_OS   := darwin-x86_64
 
 # Tools
 SYSROOT   := $(NDK_PATH)/platforms/android-19/arch-arm/usr
 PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.8/prebuilt
-BIN       := $(PREBUILT)/darwin-x86_64/bin
+BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
 RANLIB    := $(BIN)/arm-linux-androideabi-ranlib
 AR        := $(BIN)/arm-linux-androideabi-ar
@@ -84,3 +86,8 @@ openssl:
 		CC=$(CC) RANLIB=$(RANLIB) AR=$(AR) \
 		./Configure android-armv7 && \
 		ANDROID_DEV=$(SYSROOT) make build_libs
+
+dump:
+	@echo "NDK_PATH = $(NDK_PATH)"
+	@echo "SDK_PATH = $(SDK_PATH)"
+	@echo "HOST_OS  = $(HOST_OS)"
