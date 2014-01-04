@@ -5,12 +5,12 @@
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := /Users/alfredh/android/android-ndk-r8e
+NDK_PATH  := /Users/alfredh/android/android-ndk-r9c
 SDK_PATH  := /Users/alfredh/android/android-sdk-mac_x86
 
 # Tools
-SYSROOT   := $(NDK_PATH)/platforms/android-14/arch-arm/usr
-PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.7/prebuilt
+SYSROOT   := $(NDK_PATH)/platforms/android-19/arch-arm/usr
+PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.8/prebuilt
 BIN       := $(PREBUILT)/darwin-x86_64/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
 RANLIB    := $(BIN)/arm-linux-androideabi-ranlib
@@ -28,7 +28,7 @@ CFLAGS    := \
 	-march=armv7-a
 LFLAGS    := -L$(SYSROOT)/lib/ \
 	-L$(PWD)/openssl
-LFLAGS    += --sysroot=$(NDK_PATH)/platforms/android-14/arch-arm
+LFLAGS    += --sysroot=$(NDK_PATH)/platforms/android-19/arch-arm
 
 
 COMMON_FLAGS := CC=$(CC) \
