@@ -60,11 +60,12 @@ librem.a:	Makefile libre.a
 	@make $@ -C rem $(COMMON_FLAGS)
 
 retest:		Makefile librem.a libre.a
-	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=../re
+	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=$(PWD)/re
 
 baresip:	Makefile librem.a libre.a
 	@rm -f baresip/baresip
-	@make $@ -C baresip $(COMMON_FLAGS) LIBRE_SO=../re STATIC=1 \
+	@make $@ -C baresip $(COMMON_FLAGS) STATIC=1 \
+		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
 		EXTRA_MODULES="opensles"
 
 install:	baresip retest
