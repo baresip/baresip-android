@@ -5,10 +5,18 @@
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := $(HOME)/android/android-ndk-r9c
-SDK_PATH  := $(HOME)/android/android-sdk-mac_x86
-HOST_OS   := linux-x86_64
-#HOST_OS   := darwin-x86_64
+NDK_PATH  := $(HOME)/android/android-ndk-r9d
+SDK_PATH  := $(HOME)/android/android-sdk-linux
+
+OS        := $(shell uname -s | tr "[A-Z]" "[a-z]")
+
+ifeq ($(OS),linux)
+	HOST_OS   := linux-x86_64
+endif
+ifeq ($(OS),darwin)
+	HOST_OS   := darwin-x86_64
+endif
+
 
 # Tools
 SYSROOT   := $(NDK_PATH)/platforms/android-19/arch-arm/usr
@@ -52,11 +60,11 @@ COMMON_FLAGS := CC=$(CC) \
 default:	retest baresip
 
 libre.a: Makefile
-	@rm -f re/$@
+	@rm -f re/libre.*
 	@make $@ -C re $(COMMON_FLAGS)
 
 librem.a:	Makefile libre.a
-	@rm -f rem/$@
+	@rm -f rem/librem.*
 	@make $@ -C rem $(COMMON_FLAGS)
 
 retest:		Makefile librem.a libre.a
@@ -72,14 +80,14 @@ install:	baresip retest
 	$(ADB) push retest/retest /data/retest
 	$(ADB) push baresip/baresip /data/baresip
 
+config:
+	$(ADB) push .baresip /data/.baresip
+
 clean:
 	make distclean -C baresip
 	make distclean -C retest
 	make distclean -C rem
 	make distclean -C re
-
-info:
-	make $@ -C re $(COMMON_FLAGS)
 
 .PHONY: openssl
 openssl:
@@ -87,6 +95,15 @@ openssl:
 		CC=$(CC) RANLIB=$(RANLIB) AR=$(AR) \
 		./Configure android-armv7 && \
 		ANDROID_DEV=$(SYSROOT) make build_libs
+
+emulator:
+	@$(SDK_PATH)/tools/emulator -avd x
+
+shell:
+	@$(ADB) shell
+
+info:
+	make $@ -C re $(COMMON_FLAGS)
 
 dump:
 	@echo "NDK_PATH = $(NDK_PATH)"
