@@ -57,7 +57,7 @@ COMMON_FLAGS := CC=$(CC) \
 		OS=linux ARCH=arm \
 		USE_OPENSSL=yes
 
-default:	retest baresip
+default:	baresip
 
 libre.a: Makefile
 	@rm -f re/libre.*
@@ -67,17 +67,13 @@ librem.a:	Makefile libre.a
 	@rm -f rem/librem.*
 	@make $@ -C rem $(COMMON_FLAGS)
 
-retest:		Makefile librem.a libre.a
-	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=$(PWD)/re
-
 baresip:	Makefile librem.a libre.a
 	@rm -f baresip/baresip
 	@make $@ -C baresip $(COMMON_FLAGS) STATIC=1 \
 		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
 		EXTRA_MODULES="opensles"
 
-install:	baresip retest
-	$(ADB) push retest/retest /data/retest
+install:	baresip
 	$(ADB) push baresip/baresip /data/baresip
 
 config:
@@ -85,7 +81,6 @@ config:
 
 clean:
 	make distclean -C baresip
-	make distclean -C retest
 	make distclean -C rem
 	make distclean -C re
 
