@@ -17,12 +17,13 @@ Step 1 - download source code
 
 Download baresip/librem/libre source from creytiv.com [1]
 
+```
 $ wget http://www.creytiv.com/pub/baresip-0.4.8.tar.gz
 $ wget http://www.creytiv.com/pub/rem-0.4.4.tar.gz
 $ wget http://www.creytiv.com/pub/re-0.4.6.tar.gz
 $ # .. and download OpenSSL source from openssl.org [2]
 $ # .. download Android NDK from [3]
-
+```
 
 
 
@@ -38,13 +39,13 @@ symlinks to the source code so that you have a layout like this:
 
 
 
-
 Step 3 - build openssl
 
 libre depends on openssl for crypto and TLS.
 
+```
 $ make openssl
-
+```
 
 
 
@@ -52,7 +53,9 @@ Step 4 - build baresip + libs
 
 baresip depends on librem and libre.
 
+```
 $ make baresip
+```
 
 this will create a statically linked binary in baresip/baresip
 
@@ -61,7 +64,9 @@ this will create a statically linked binary in baresip/baresip
 
 Step 5 - install baresip in Emulator or target
 
+```
 $ make install
+```
 
 this will use adb to install baresip in your configured Android emulator.
 you can also copy the binary to an Android device using ssh.
