@@ -55,7 +55,10 @@ COMMON_FLAGS := CC=$(CC) \
 		HAVE_INET6= \
 		PEDANTIC= \
 		OS=linux ARCH=arm \
-		USE_OPENSSL=yes
+		USE_OPENSSL=yes \
+		USE_OPENSSL_DTLS=yes \
+		USE_OPENSSL_SRTP=yes \
+		ANDROID=yes
 
 default:	baresip
 
@@ -67,11 +70,12 @@ librem.a:	Makefile libre.a
 	@rm -f rem/librem.*
 	@make $@ -C rem $(COMMON_FLAGS)
 
+.PHONY: baresip
 baresip:	Makefile librem.a libre.a
 	@rm -f baresip/baresip
 	@make $@ -C baresip $(COMMON_FLAGS) STATIC=1 \
 		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
-		EXTRA_MODULES="opensles"
+		EXTRA_MODULES="opensles dtls_srtp"
 
 install:	baresip
 	$(ADB) push baresip/baresip /data/baresip
@@ -104,3 +108,14 @@ dump:
 	@echo "NDK_PATH = $(NDK_PATH)"
 	@echo "SDK_PATH = $(SDK_PATH)"
 	@echo "HOST_OS  = $(HOST_OS)"
+
+#
+# additional targets for `retest'
+#
+
+.PHONY: retest
+retest:		Makefile librem.a libre.a
+	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=$(PWD)/re \
+		LIBREM_PATH=$(PWD)/rem
+	$(ADB) push retest/retest /data/retest
+	@$(ADB) shell "/data/retest -r "
