@@ -16,3 +16,9 @@
 *.exe
 *.out
 *.app
+
+openssl
+re
+rem
+retest
+baresip
