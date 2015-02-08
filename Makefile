@@ -5,7 +5,7 @@
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := $(HOME)/android/android-ndk-r9d
+NDK_PATH  := $(HOME)/android/android-ndk-r10d
 SDK_PATH  := $(HOME)/android/android-sdk-linux
 
 OS        := $(shell uname -s | tr "[A-Z]" "[a-z]")
