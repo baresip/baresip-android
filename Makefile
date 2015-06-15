@@ -5,8 +5,8 @@
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := $(HOME)/android/android-ndk-r10d
-SDK_PATH  := $(HOME)/android/android-sdk-linux
+NDK_PATH  := $(HOME)/android/android-ndk-r10e
+SDK_PATH  := $(HOME)/android/android-sdk
 
 OS        := $(shell uname -s | tr "[A-Z]" "[a-z]")
 
@@ -25,7 +25,7 @@ BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
 RANLIB    := $(BIN)/arm-linux-androideabi-ranlib
 AR        := $(BIN)/arm-linux-androideabi-ar
-ADB       := $(SDK_PATH)/platform-tools/adb
+ADB       := $(SDK_PATH)/bin/adb
 PWD       := $(shell pwd)
 
 # Compiler and Linker Flags
@@ -35,9 +35,11 @@ CFLAGS    := \
 	-Wno-cast-align \
 	-Wno-shadow \
 	-Wno-nested-externs \
-	-march=armv7-a
+	-march=armv7-a \
+	-fPIE
 LFLAGS    := -L$(SYSROOT)/lib/ \
-	-L$(PWD)/openssl
+	-L$(PWD)/openssl \
+	-fPIE -pie
 LFLAGS    += --sysroot=$(NDK_PATH)/platforms/android-19/arch-arm
 
 
@@ -96,7 +98,7 @@ openssl:
 		ANDROID_DEV=$(SYSROOT) make build_libs
 
 emulator:
-	@$(SDK_PATH)/tools/emulator -avd x
+	@$(SDK_PATH)/tools/emulator -avd test
 
 shell:
 	@$(ADB) shell
@@ -115,7 +117,8 @@ dump:
 
 .PHONY: retest
 retest:		Makefile librem.a libre.a
+	@rm -f retest/retest
 	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=$(PWD)/re \
 		LIBREM_PATH=$(PWD)/rem
 	$(ADB) push retest/retest /data/retest
-	@$(ADB) shell "/data/retest -r "
+	@$(ADB) shell "/data/retest -r -v"
