@@ -25,7 +25,7 @@ BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
 RANLIB    := $(BIN)/arm-linux-androideabi-ranlib
 AR        := $(BIN)/arm-linux-androideabi-ar
-ADB       := $(SDK_PATH)/bin/adb
+ADB       := $(SDK_PATH)/platform-tools/adb
 PWD       := $(shell pwd)
 
 # Compiler and Linker Flags
