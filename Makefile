@@ -23,6 +23,7 @@ SYSROOT   := $(NDK_PATH)/platforms/android-19/arch-arm/usr
 PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.8/prebuilt
 BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
+CXX       := $(BIN)/arm-linux-androideabi-g++
 RANLIB    := $(BIN)/arm-linux-androideabi-ranlib
 AR        := $(BIN)/arm-linux-androideabi-ar
 ADB       := $(SDK_PATH)/platform-tools/adb
@@ -44,6 +45,7 @@ LFLAGS    += --sysroot=$(NDK_PATH)/platforms/android-19/arch-arm
 
 
 COMMON_FLAGS := CC=$(CC) \
+		CXX=$(CXX) \
 		RANLIB=$(RANLIB) \
 		EXTRA_CFLAGS="$(CFLAGS)" \
 		EXTRA_LFLAGS="$(LFLAGS)" \
@@ -121,4 +123,5 @@ retest:		Makefile librem.a libre.a
 	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=$(PWD)/re \
 		LIBREM_PATH=$(PWD)/rem
 	$(ADB) push retest/retest /data/retest
-	@$(ADB) shell "/data/retest -r -v"
+	$(ADB) push retest/data /data/data
+	$(ADB) shell "cd /data && ./retest -r -v"
