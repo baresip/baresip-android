@@ -78,11 +78,12 @@ librem.a:	Makefile libre.a
 
 .PHONY: baresip
 baresip:	Makefile librem.a libre.a
-	@rm -f baresip/baresip
+	@rm -f baresip/baresip baresip/src/static.c
 	PKG_CONFIG_LIBDIR="$(SYSROOT)/lib/pkgconfig" \
 	make $@ -C baresip $(COMMON_FLAGS) STATIC=1 \
 		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
-		EXTRA_MODULES="opensles dtls_srtp"
+	        MOD_AUTODETECT= \
+		EXTRA_MODULES="g711 stdio opensles dtls_srtp"
 
 install:	baresip
 	$(ADB) push baresip/baresip /data/baresip
