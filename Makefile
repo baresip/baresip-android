@@ -32,12 +32,11 @@ ADB       := $(SDK_PATH)/platform-tools/adb
 PWD       := $(shell pwd)
 
 # Compiler and Linker Flags
+#
+# NOTE: use -isystem to avoid warnings in system header files
 CFLAGS    := \
-	-I$(SYSROOT)/include/ \
+	-isystem $(SYSROOT)/include/ \
 	-I$(PWD)/openssl/include \
-	-Wno-cast-align \
-	-Wno-shadow \
-	-Wno-nested-externs \
 	-march=armv7-a \
 	-fPIE
 LFLAGS    := -L$(SYSROOT)/lib/ \
@@ -93,6 +92,7 @@ config:
 
 clean:
 	make distclean -C baresip
+	make distclean -C retest
 	make distclean -C rem
 	make distclean -C re
 
