@@ -8,6 +8,8 @@
 NDK_PATH  := $(HOME)/android/android-ndk-r10e
 SDK_PATH  := $(HOME)/android/android-sdk
 
+PLATFORM  := android-19
+
 OS        := $(shell uname -s | tr "[A-Z]" "[a-z]")
 
 ifeq ($(OS),linux)
@@ -19,7 +21,7 @@ endif
 
 
 # Tools
-SYSROOT   := $(NDK_PATH)/platforms/android-19/arch-arm/usr
+SYSROOT   := $(NDK_PATH)/platforms/$(PLATFORM)/arch-arm/usr
 PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.8/prebuilt
 BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
@@ -41,7 +43,7 @@ CFLAGS    := \
 LFLAGS    := -L$(SYSROOT)/lib/ \
 	-L$(PWD)/openssl \
 	-fPIE -pie
-LFLAGS    += --sysroot=$(NDK_PATH)/platforms/android-19/arch-arm
+LFLAGS    += --sysroot=$(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
 
 
 COMMON_FLAGS := CC=$(CC) \
