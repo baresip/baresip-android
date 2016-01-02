@@ -10,6 +10,9 @@ SDK_PATH  := $(HOME)/android/android-sdk
 
 PLATFORM  := android-19
 
+# Path to install binaries on your Android-device
+TARGET_PATH=/data/local/tmp
+
 OS        := $(shell uname -s | tr "[A-Z]" "[a-z]")
 
 ifeq ($(OS),linux)
@@ -85,10 +88,10 @@ baresip:	Makefile librem.a libre.a
 		EXTRA_MODULES="g711 stdio opensles dtls_srtp"
 
 install:	baresip
-	$(ADB) push baresip/baresip /data/baresip
+	$(ADB) push baresip/baresip $(TARGET_PATH)/baresip
 
 config:
-	$(ADB) push .baresip /data/.baresip
+	$(ADB) push .baresip $(TARGET_PATH)/.baresip
 
 clean:
 	make distclean -C baresip
@@ -126,6 +129,6 @@ retest:		Makefile librem.a libre.a
 	@rm -f retest/retest
 	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=$(PWD)/re \
 		LIBREM_PATH=$(PWD)/rem
-	$(ADB) push retest/retest /data/retest
-	$(ADB) push retest/data /data/data
-	$(ADB) shell "cd /data && ./retest -r -v"
+	$(ADB) push retest/retest $(TARGET_PATH)/retest
+	$(ADB) push retest/data $(TARGET_PATH)/data
+	$(ADB) shell "cd $(TARGET_PATH) && ./retest -r -v"
