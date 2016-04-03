@@ -52,6 +52,7 @@ COMMON_FLAGS := CC=$(CC) \
 		CXX=$(CXX) \
 		RANLIB=$(RANLIB) \
 		EXTRA_CFLAGS="$(CFLAGS) -DANDROID" \
+		EXTRA_CXXFLAGS="$(CFLAGS) -DANDROID" \
 		EXTRA_LFLAGS="$(LFLAGS)" \
 		SYSROOT=$(SYSROOT) \
 		SYSROOT_ALT= \
@@ -86,6 +87,16 @@ baresip:	Makefile librem.a libre.a
 		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
 	        MOD_AUTODETECT= \
 		EXTRA_MODULES="g711 stdio opensles dtls_srtp"
+
+.PHONY: selftest
+selftest:	Makefile librem.a libre.a
+	@rm -f baresip/selftest baresip/src/static.c
+	make selftest -C baresip $(COMMON_FLAGS) STATIC=1 \
+		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem
+	        MOD_AUTODETECT= \
+	$(ADB) push baresip/selftest $(TARGET_PATH)/selftest
+	$(ADB) shell "cd $(TARGET_PATH) && ./selftest "
+
 
 install:	baresip
 	$(ADB) push baresip/baresip $(TARGET_PATH)/baresip
