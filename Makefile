@@ -5,10 +5,10 @@
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := $(HOME)/android/android-ndk-r10e
+NDK_PATH  := $(HOME)/android/android-ndk-r11c
 SDK_PATH  := $(HOME)/android/android-sdk
 
-PLATFORM  := android-19
+PLATFORM  := android-24
 
 # Path to install binaries on your Android-device
 TARGET_PATH=/data/local/tmp
@@ -25,7 +25,7 @@ endif
 
 # Tools
 SYSROOT   := $(NDK_PATH)/platforms/$(PLATFORM)/arch-arm/usr
-PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.8/prebuilt
+PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.9/prebuilt
 BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
 CXX       := $(BIN)/arm-linux-androideabi-g++
@@ -91,9 +91,10 @@ baresip:	Makefile librem.a libre.a
 .PHONY: selftest
 selftest:	Makefile librem.a libre.a
 	@rm -f baresip/selftest baresip/src/static.c
-	make selftest -C baresip $(COMMON_FLAGS) STATIC=1 \
-		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem
-	        MOD_AUTODETECT= \
+	PKG_CONFIG_LIBDIR="$(SYSROOT)/lib/pkgconfig" \
+	make selftest -C baresip $(COMMON_FLAGS) \
+		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
+	        MOD_AUTODETECT=
 	$(ADB) push baresip/selftest $(TARGET_PATH)/selftest
 	$(ADB) shell "cd $(TARGET_PATH) && ./selftest "
 
@@ -135,6 +136,7 @@ dump:
 # additional targets for `retest'
 #
 
+test: retest
 .PHONY: retest
 retest:		Makefile librem.a libre.a
 	@rm -f retest/retest
