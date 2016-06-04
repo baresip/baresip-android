@@ -21,8 +21,11 @@ Download baresip/librem/libre source from creytiv.com [1]
 $ wget http://www.creytiv.com/pub/baresip-0.4.19.tar.gz
 $ wget http://www.creytiv.com/pub/rem-0.4.7.tar.gz
 $ wget http://www.creytiv.com/pub/re-0.4.16.tar.gz
+$ wget http://www.creytiv.com/pub/retest-0.4.5.tar.gz
+
 $ # .. and download OpenSSL source from openssl.org [2]
 $ wget https://www.openssl.org/source/openssl-1.0.2h.tar.gz
+
 $ # .. download Android NDK from [3]
 ```
 
@@ -72,6 +75,15 @@ $ make install
 this will use adb to install baresip in your configured Android emulator.
 you can also copy the binary to an Android device using ssh.
 
+
+## Run test program on Android target
+
+```
+$ make test
+```
+
+this will compile retest and install it on your configured
+Android device, and then run the whole test program.
 
 
 
