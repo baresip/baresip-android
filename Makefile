@@ -41,7 +41,8 @@ CFLAGS    := \
 	-isystem $(SYSROOT)/include/ \
 	-I$(PWD)/openssl/include \
 	-march=armv7-a \
-	-fPIE
+	-fPIE \
+	-DCONFIG_PATH='\"$(TARGET_PATH)\"'
 LFLAGS    := -L$(SYSROOT)/lib/ \
 	-L$(PWD)/openssl \
 	-fPIE -pie
@@ -104,6 +105,7 @@ install:	baresip
 
 config:
 	$(ADB) push .baresip $(TARGET_PATH)/.baresip
+	$(ADB) push baresip/share $(TARGET_PATH)/share
 
 clean:
 	make distclean -C baresip
