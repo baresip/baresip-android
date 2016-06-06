@@ -13,6 +13,10 @@ PLATFORM  := android-17
 # Path to install binaries on your Android-device
 TARGET_PATH=/data/local/tmp
 
+# Config path where .baresip directory is located
+CONFIG_PATH=/data/local/tmp
+
+
 OS        := $(shell uname -s | tr "[A-Z]" "[a-z]")
 
 ifeq ($(OS),linux)
@@ -42,7 +46,7 @@ CFLAGS    := \
 	-I$(PWD)/openssl/include \
 	-march=armv7-a \
 	-fPIE \
-	-DCONFIG_PATH='\"$(TARGET_PATH)\"'
+	-DCONFIG_PATH='\"$(CONFIG_PATH)\"'
 LFLAGS    := -L$(SYSROOT)/lib/ \
 	-L$(PWD)/openssl \
 	-fPIE -pie
