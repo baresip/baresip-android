@@ -44,11 +44,15 @@ PWD       := $(shell pwd)
 CFLAGS    := \
 	-isystem $(SYSROOT)/usr/include/ \
 	-I$(PWD)/openssl/include \
+	-I$(PWD)/opus/include_opus \
+	-I$(PWD)/libzrtp/include \
 	-march=armv7-a \
 	-fPIE \
 	-DCONFIG_PATH='\"$(CONFIG_PATH)\"'
 LFLAGS    := -L$(SYSROOT)/usr/lib/ \
 	-L$(PWD)/openssl \
+	-L$(PWD)/opus/.libs \
+	-L$(PWD)/libzrtp \
 	-fPIE -pie
 LFLAGS    += --sysroot=$(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
 
@@ -74,6 +78,16 @@ COMMON_FLAGS := CC=$(CC) \
 		USE_OPENSSL_SRTP=yes \
 		ANDROID=yes
 
+EXTRA_MODULES := g711 stdio opensles dtls_srtp
+
+ifneq ("$(wildcard $(PWD)/opus)","")
+	EXTRA_MODULES := $(EXTRA_MODULES) opus
+endif
+
+ifneq ("$(wildcard $(PWD)/libzrtp)","")
+	EXTRA_MODULES := $(EXTRA_MODULES) zrtp
+endif
+
 default:	baresip
 
 libre.a: Makefile
@@ -91,7 +105,7 @@ baresip:	Makefile librem.a libre.a
 	make $@ -C baresip $(COMMON_FLAGS) STATIC=1 \
 		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
 	        MOD_AUTODETECT= \
-		EXTRA_MODULES="g711 stdio opensles dtls_srtp"
+		EXTRA_MODULES="$(EXTRA_MODULES)"
 
 .PHONY: selftest
 selftest:	Makefile librem.a libre.a
@@ -123,6 +137,32 @@ openssl:
 		CC=$(CC) RANLIB=$(RANLIB) AR=$(AR) \
 		./Configure android-armv7 && \
 		ANDROID_DEV=$(SYSROOT)/usr make build_libs
+
+.PHONY: opus
+opus:
+	cd opus && \
+		rm -rf include_opus && \
+		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="-march=armv7-a" && \
+		make && \
+		mkdir include_opus && \
+		mkdir include_opus/opus && \
+		cp include/* include_opus/opus
+
+.PHONY: zrtp
+zrtp:
+	cd libzrtp && \
+		./bootstrap.sh && \
+		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
+		cd third_party/bnlib/ && \
+		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
+		cd ../.. && \
+		make
 
 emulator:
 	@$(SDK_PATH)/tools/emulator -avd test
