@@ -5,7 +5,7 @@
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := $(HOME)/android/android-ndk-r11c
+NDK_PATH  := $(HOME)/android/android-ndk-r13
 SDK_PATH  := $(HOME)/android/android-sdk
 
 PLATFORM  := android-17
@@ -28,7 +28,7 @@ endif
 
 
 # Tools
-SYSROOT   := $(NDK_PATH)/platforms/$(PLATFORM)/arch-arm/usr
+SYSROOT   := $(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
 PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.9/prebuilt
 BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
@@ -42,12 +42,12 @@ PWD       := $(shell pwd)
 #
 # NOTE: use -isystem to avoid warnings in system header files
 CFLAGS    := \
-	-isystem $(SYSROOT)/include/ \
+	-isystem $(SYSROOT)/usr/include/ \
 	-I$(PWD)/openssl/include \
 	-march=armv7-a \
 	-fPIE \
 	-DCONFIG_PATH='\"$(CONFIG_PATH)\"'
-LFLAGS    := -L$(SYSROOT)/lib/ \
+LFLAGS    := -L$(SYSROOT)/usr/lib/ \
 	-L$(PWD)/openssl \
 	-fPIE -pie
 LFLAGS    += --sysroot=$(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
@@ -59,7 +59,7 @@ COMMON_FLAGS := CC=$(CC) \
 		EXTRA_CFLAGS="$(CFLAGS) -DANDROID" \
 		EXTRA_CXXFLAGS="$(CFLAGS) -DANDROID" \
 		EXTRA_LFLAGS="$(LFLAGS)" \
-		SYSROOT=$(SYSROOT) \
+		SYSROOT=$(SYSROOT)/usr \
 		SYSROOT_ALT= \
 		HAVE_LIBRESOLV= \
 		HAVE_PTHREAD=1 \
@@ -87,7 +87,7 @@ librem.a:	Makefile libre.a
 .PHONY: baresip
 baresip:	Makefile librem.a libre.a
 	@rm -f baresip/baresip baresip/src/static.c
-	PKG_CONFIG_LIBDIR="$(SYSROOT)/lib/pkgconfig" \
+	PKG_CONFIG_LIBDIR="$(SYSROOT)/usr/lib/pkgconfig" \
 	make $@ -C baresip $(COMMON_FLAGS) STATIC=1 \
 		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
 	        MOD_AUTODETECT= \
@@ -96,7 +96,7 @@ baresip:	Makefile librem.a libre.a
 .PHONY: selftest
 selftest:	Makefile librem.a libre.a
 	@rm -f baresip/selftest baresip/src/static.c
-	PKG_CONFIG_LIBDIR="$(SYSROOT)/lib/pkgconfig" \
+	PKG_CONFIG_LIBDIR="$(SYSROOT)/usr/lib/pkgconfig" \
 	make selftest -C baresip $(COMMON_FLAGS) STATIC=1 \
 		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
 	        MOD_AUTODETECT=
@@ -122,7 +122,7 @@ openssl:
 	cd openssl && \
 		CC=$(CC) RANLIB=$(RANLIB) AR=$(AR) \
 		./Configure android-armv7 && \
-		ANDROID_DEV=$(SYSROOT) make build_libs
+		ANDROID_DEV=$(SYSROOT)/usr make build_libs
 
 emulator:
 	@$(SDK_PATH)/tools/emulator -avd test
