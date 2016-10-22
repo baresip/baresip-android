@@ -143,7 +143,7 @@ opus:
 	cd opus && \
 		rm -rf include_opus && \
 		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="-march=armv7-a" && \
 		make && \
 		mkdir include_opus && \
@@ -155,11 +155,11 @@ zrtp:
 	cd libzrtp && \
 		./bootstrap.sh && \
 		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
 		cd third_party/bnlib/ && \
 		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
 		cd ../.. && \
 		make
