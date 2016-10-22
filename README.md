@@ -29,7 +29,10 @@ $ wget https://www.openssl.org/source/openssl-1.0.2h.tar.gz
 $ # .. and download Opus source from opus.org [5] (optional)
 $ wget http://downloads.xiph.org/releases/opus/opus-1.1.3.tar.gz
 
-$ # .. and download ZRTP source from github.com [6] (optional)
+$ # .. and download Speex source from speex.org [6] (optional)
+$ wget http://downloads.xiph.org/releases/speex/speex-1.2rc2.tar.gz
+
+$ # .. and download ZRTP source from github.com [7] (optional)
 $ wget https://github.com/traviscross/libzrtp/archive/master.zip
 
 $ # .. download Android NDK from [3]
@@ -61,23 +64,17 @@ $ make openssl
 
 
 
-## Step 4 - build opus (optional)
+## Step 4 - build opus, speex, zrtp (optional)
 
 ```
 $ make opus
-```
-
-
-
-## Step 5 - build zrtp (optional)
-
-```
+$ make speex
 $ make zrtp
 ```
 
 
 
-## Step 6 - build baresip + libs
+## Step 5 - build baresip + libs
 
 baresip depends on librem and libre.
 
@@ -126,4 +123,5 @@ mailing-list [4] and contribute patches here :)
 [3] http://developer.android.com/tools/sdk/ndk/index.html
 [4] http://lists.creytiv.com/mailman/listinfo/re-devel
 [5] http://opus-codec.org
-[6] https://github.com/traviscross/libzrtp
+[6] http://speex.org
+[7] https://github.com/traviscross/libzrtp

@@ -45,6 +45,7 @@ CFLAGS    := \
 	-isystem $(SYSROOT)/usr/include/ \
 	-I$(PWD)/openssl/include \
 	-I$(PWD)/opus/include_opus \
+	-I$(PWD)/speex/include \
 	-I$(PWD)/libzrtp/include \
 	-march=armv7-a \
 	-fPIE \
@@ -52,6 +53,7 @@ CFLAGS    := \
 LFLAGS    := -L$(SYSROOT)/usr/lib/ \
 	-L$(PWD)/openssl \
 	-L$(PWD)/opus/.libs \
+	-L$(PWD)/speex/libspeex/.libs \
 	-L$(PWD)/libzrtp \
 	-fPIE -pie
 LFLAGS    += --sysroot=$(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
@@ -82,6 +84,10 @@ EXTRA_MODULES := g711 stdio opensles dtls_srtp
 
 ifneq ("$(wildcard $(PWD)/opus)","")
 	EXTRA_MODULES := $(EXTRA_MODULES) opus
+endif
+
+ifneq ("$(wildcard $(PWD)/speex)","")
+	EXTRA_MODULES := $(EXTRA_MODULES) speex
 endif
 
 ifneq ("$(wildcard $(PWD)/libzrtp)","")
@@ -149,6 +155,14 @@ opus:
 		mkdir include_opus && \
 		mkdir include_opus/opus && \
 		cp include/* include_opus/opus
+
+.PHONY: speex
+speex:
+	cd speex && \
+		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="-march=armv7-a" && \
+		make
 
 .PHONY: zrtp
 zrtp:
