@@ -48,6 +48,7 @@ symlinks to the source code so that you have a layout like this:
     baresip/
     openssl/
     opus/ (optional)
+    speex/ (optional)
     libzrtp/ (optional)
     re/
     rem/
