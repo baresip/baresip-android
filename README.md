@@ -57,7 +57,6 @@ libre depends on openssl for crypto and TLS.
 
 ```
 $ make openssl
-
 ```
 
 
@@ -126,5 +125,5 @@ mailing-list [4] and contribute patches here :)
 [2] www.openssl.org
 [3] http://developer.android.com/tools/sdk/ndk/index.html
 [4] http://lists.creytiv.com/mailman/listinfo/re-devel
-[5] opus-codec.org
+[5] http://opus-codec.org
 [6] https://github.com/traviscross/libzrtp
