@@ -26,6 +26,15 @@ $ wget http://www.creytiv.com/pub/retest-0.4.5.tar.gz
 $ # .. and download OpenSSL source from openssl.org [2]
 $ wget https://www.openssl.org/source/openssl-1.0.2h.tar.gz
 
+$ # .. and download Opus source from opus.org [5] (optional)
+$ wget http://downloads.xiph.org/releases/opus/opus-1.1.3.tar.gz
+
+$ # .. and download Speex source from speex.org [6] (optional)
+$ wget http://downloads.xiph.org/releases/speex/speex-1.2rc2.tar.gz
+
+$ # .. and download ZRTP source from github.com [7] (optional)
+$ wget https://github.com/traviscross/libzrtp/archive/master.zip
+
 $ # .. download Android NDK from [3]
 ```
 
@@ -38,6 +47,9 @@ symlinks to the source code so that you have a layout like this:
 
     baresip/
     openssl/
+    opus/ (optional)
+    speex/ (optional)
+    libzrtp/ (optional)
     re/
     rem/
 
@@ -53,7 +65,17 @@ $ make openssl
 
 
 
-## Step 4 - build baresip + libs
+## Step 4 - build opus, speex, zrtp (optional)
+
+```
+$ make opus
+$ make speex
+$ make zrtp
+```
+
+
+
+## Step 5 - build baresip + libs
 
 baresip depends on librem and libre.
 
@@ -66,7 +88,7 @@ this will create a statically linked binary in baresip/baresip
 
 
 
-## Step 5 - install baresip in Emulator or target
+## Step 6 - install baresip in Emulator or target
 
 ```
 $ make install
@@ -101,3 +123,6 @@ mailing-list [4] and contribute patches here :)
 [2] www.openssl.org
 [3] http://developer.android.com/tools/sdk/ndk/index.html
 [4] http://lists.creytiv.com/mailman/listinfo/re-devel
+[5] http://opus-codec.org
+[6] http://speex.org
+[7] https://github.com/traviscross/libzrtp
