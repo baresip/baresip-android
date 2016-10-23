@@ -17,8 +17,11 @@
 *.out
 *.app
 
-openssl
+openssl*
 re
 rem
 retest
 baresip
+opus*
+speex*
+libzrtp*
