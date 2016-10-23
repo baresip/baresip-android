@@ -47,6 +47,8 @@ CFLAGS    := \
 	-I$(PWD)/opus/include_opus \
 	-I$(PWD)/speex/include \
 	-I$(PWD)/libzrtp/include \
+	-I$(PWD)/libzrtp/third_party/bnlib \
+	-I$(PWD)/libzrtp/third_party/bgaes \
 	-march=armv7-a \
 	-fPIE \
 	-DCONFIG_PATH='\"$(CONFIG_PATH)\"'
@@ -55,6 +57,7 @@ LFLAGS    := -L$(SYSROOT)/usr/lib/ \
 	-L$(PWD)/opus/.libs \
 	-L$(PWD)/speex/libspeex/.libs \
 	-L$(PWD)/libzrtp \
+	-L$(PWD)/libzrtp/third_party/bnlib \
 	-fPIE -pie
 LFLAGS    += --sysroot=$(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
 
