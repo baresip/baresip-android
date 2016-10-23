@@ -148,9 +148,11 @@ openssl:
 opus:
 	cd opus && \
 		rm -rf include_opus && \
-		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="-march=armv7-a" && \
+		CC="$(CC) --sysroot $(SYSROOT)" \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		make && \
 		mkdir include_opus && \
 		mkdir include_opus/opus && \
@@ -159,23 +161,27 @@ opus:
 .PHONY: speex
 speex:
 	cd speex && \
-		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="-march=armv7-a" && \
+		CC="$(CC) --sysroot $(SYSROOT)" \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		make
 
 .PHONY: zrtp
 zrtp:
 	cd libzrtp && \
 		./bootstrap.sh && \
-		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
 		cd third_party/bnlib/ && \
-		CC="arm-linux-androideabi-gcc --sysroot $(SYSROOT)" \
+		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
 		cd ../.. && \
+		CC="$(CC) --sysroot $(SYSROOT)" \
+		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		make
 
 emulator:
