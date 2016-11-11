@@ -213,5 +213,5 @@ retest:		Makefile librem.a libre.a
 	@make $@ -C retest $(COMMON_FLAGS) LIBRE_SO=$(PWD)/re \
 		LIBREM_PATH=$(PWD)/rem
 	$(ADB) push retest/retest $(TARGET_PATH)/retest
-	$(ADB) push retest/data $(TARGET_PATH)/data
+	$(ADB) push retest/data/. $(TARGET_PATH)/data
 	$(ADB) shell "cd $(TARGET_PATH) && ./retest -r -v"
