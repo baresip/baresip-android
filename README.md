@@ -33,7 +33,7 @@ $ # .. and download Speex source from speex.org [6] (optional)
 $ wget http://downloads.xiph.org/releases/speex/speex-1.2rc2.tar.gz
 
 $ # .. and download ZRTP source from github.com [7] (optional)
-$ wget https://github.com/traviscross/libzrtp/archive/master.zip
+$ wget https://github.com/juha-h/libzrtp/archive/master.zip
 
 $ # .. download Android NDK from [3]
 ```
@@ -125,4 +125,4 @@ mailing-list [4] and contribute patches here :)
 [4] http://lists.creytiv.com/mailman/listinfo/re-devel
 [5] http://opus-codec.org
 [6] http://speex.org
-[7] https://github.com/traviscross/libzrtp
+[7] https://github.com/juha-h/libzrtp
