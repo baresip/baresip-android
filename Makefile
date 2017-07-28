@@ -132,7 +132,7 @@ install:	baresip
 	$(ADB) push baresip/baresip $(TARGET_PATH)/baresip
 
 config:
-	$(ADB) push .baresip $(TARGET_PATH)/.baresip
+	$(ADB) push .baresip $(TARGET_PATH)/
 	$(ADB) push baresip/share $(TARGET_PATH)/share
 
 clean:
