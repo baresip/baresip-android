@@ -84,7 +84,7 @@ COMMON_FLAGS := CC=$(CC) \
 		USE_OPENSSL_SRTP=yes \
 		ANDROID=yes
 
-EXTRA_MODULES := g711 stdio opensles dtls_srtp
+EXTRA_MODULES := g711 stdio opensles dtls_srtp echo aubridge
 
 ifneq ("$(wildcard $(PWD)/opus)","")
 	EXTRA_MODULES := $(EXTRA_MODULES) opus
