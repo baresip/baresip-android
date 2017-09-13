@@ -145,8 +145,10 @@ clean:
 openssl:
 	cd openssl && \
 		CC=$(CC) RANLIB=$(RANLIB) AR=$(AR) \
-		./Configure android-armv7 && \
-		ANDROID_DEV=$(SYSROOT)/usr make build_libs
+		./Configure android no-shared && \
+		ANDROID_DEV=$(SYSROOT)/usr \
+		CROSS_SYSROOT="$(SYSROOT)" \
+		make build_libs
 
 .PHONY: opus
 opus:

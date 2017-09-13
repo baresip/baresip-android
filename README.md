@@ -24,7 +24,7 @@ $ wget http://www.creytiv.com/pub/re-0.4.16.tar.gz
 $ wget http://www.creytiv.com/pub/retest-0.4.5.tar.gz
 
 $ # .. and download OpenSSL source from openssl.org [2]
-$ wget https://www.openssl.org/source/openssl-1.0.2h.tar.gz
+$ wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz
 
 $ # .. and download Opus source from opus.org [5] (optional)
 $ wget http://downloads.xiph.org/releases/opus/opus-1.1.3.tar.gz
