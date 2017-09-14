@@ -18,10 +18,10 @@ toolkit (libbaresip) for 3rd-party applications.
 Download baresip/librem/libre source from creytiv.com [1]
 
 ```
-$ wget http://www.creytiv.com/pub/baresip-0.4.19.tar.gz
-$ wget http://www.creytiv.com/pub/rem-0.4.7.tar.gz
-$ wget http://www.creytiv.com/pub/re-0.4.16.tar.gz
-$ wget http://www.creytiv.com/pub/retest-0.4.5.tar.gz
+$ wget http://www.creytiv.com/pub/baresip-0.5.5.tar.gz
+$ wget http://www.creytiv.com/pub/rem-0.5.1.tar.gz
+$ wget http://www.creytiv.com/pub/re-0.5.5.tar.gz
+$ wget http://www.creytiv.com/pub/retest-0.5.1.tar.gz
 
 $ # .. and download OpenSSL source from openssl.org [2]
 $ wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz
