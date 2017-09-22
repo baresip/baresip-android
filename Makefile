@@ -65,6 +65,7 @@ LFLAGS    += --sysroot=$(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
 COMMON_FLAGS := CC=$(CC) \
 		CXX=$(CXX) \
 		RANLIB=$(RANLIB) \
+		AR=$(AR) \
 		EXTRA_CFLAGS="$(CFLAGS) -DANDROID" \
 		EXTRA_CXXFLAGS="$(CFLAGS) -DANDROID" \
 		EXTRA_LFLAGS="$(LFLAGS)" \
