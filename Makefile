@@ -109,6 +109,14 @@ librem.a:	Makefile libre.a
 	@rm -f rem/librem.*
 	@make $@ -C rem $(COMMON_FLAGS)
 
+libbaresip.a:	Makefile librem.a libre.a
+	@rm -f baresip/baresip baresip/src/static.c
+	PKG_CONFIG_LIBDIR="$(SYSROOT)/usr/lib/pkgconfig" \
+	make $@ -C baresip $(COMMON_FLAGS) STATIC=1 \
+		LIBRE_SO=$(PWD)/re LIBREM_PATH=$(PWD)/rem \
+	        MOD_AUTODETECT= \
+		EXTRA_MODULES="$(EXTRA_MODULES)"
+
 .PHONY: baresip
 baresip:	Makefile librem.a libre.a
 	@rm -f baresip/baresip baresip/src/static.c
