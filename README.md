@@ -119,10 +119,10 @@ mailing-list [4] and contribute patches here :)
 
 ## References:
 
-[1] www.creytiv.com
-[2] www.openssl.org
-[3] http://developer.android.com/tools/sdk/ndk/index.html
-[4] http://lists.creytiv.com/mailman/listinfo/re-devel
-[5] http://opus-codec.org
-[6] http://speex.org
-[7] https://github.com/juha-h/libzrtp
+- [1] www.creytiv.com
+- [2] www.openssl.org
+- [3] http://developer.android.com/tools/sdk/ndk/index.html
+- [4] http://lists.creytiv.com/mailman/listinfo/re-devel
+- [5] http://opus-codec.org
+- [6] http://speex.org
+- [7] https://github.com/juha-h/libzrtp
