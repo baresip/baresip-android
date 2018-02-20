@@ -8,7 +8,7 @@
 NDK_PATH  := $(HOME)/android/android-ndk-r15c
 SDK_PATH  := $(HOME)/android/android-sdk
 
-PLATFORM  := android-17
+PLATFORM  := android-21
 
 # Path to install binaries on your Android-device
 TARGET_PATH=/data/local/tmp
