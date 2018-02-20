@@ -8,7 +8,18 @@
 NDK_PATH  := $(HOME)/android/android-ndk-r15c
 SDK_PATH  := $(HOME)/android/android-sdk
 
-PLATFORM  := android-21
+#
+# Android API-levels:
+#
+# API-Level:      Version:
+# ---------       -------
+#     17           4.2.x
+#     18           4.3.x
+#     19           4.4 - 4.4.4
+#     21           5.0
+#
+API_LEVEL := 21
+PLATFORM  := android-$(API_LEVEL)
 
 # Path to install binaries on your Android-device
 TARGET_PATH=/data/local/tmp
