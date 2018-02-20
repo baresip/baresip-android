@@ -150,11 +150,41 @@ clean:
 	make distclean -C rem
 	make distclean -C re
 
+
+OPENSSL_FLAGS := \
+	threads \
+	\
+	no-async \
+	no-bf \
+	no-blake2 \
+	no-camellia \
+	no-capieng \
+	no-cast \
+	no-comp \
+	no-dso \
+	no-engine \
+	no-gost \
+	no-heartbeats \
+	no-idea \
+	no-md2 \
+	no-md4 \
+	no-mdc2 \
+	no-psk \
+	no-rc2 \
+	no-rc4 \
+	no-rc5 \
+	no-sctp \
+	no-seed \
+	no-shared \
+	no-srp \
+	no-ssl3
+
+
 .PHONY: openssl
 openssl:
 	cd openssl && \
 		CC=$(CC) RANLIB=$(RANLIB) AR=$(AR) \
-		./Configure android no-shared && \
+		./Configure android $(OPENSSL_FLAGS) && \
 		ANDROID_DEV=$(SYSROOT)/usr \
 		CROSS_SYSROOT="$(SYSROOT)" \
 		make build_libs
