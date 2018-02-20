@@ -5,7 +5,7 @@
 #
 
 # Paths to your Android SDK/NDK
-NDK_PATH  := $(HOME)/android/android-ndk-r14
+NDK_PATH  := $(HOME)/android/android-ndk-r15c
 SDK_PATH  := $(HOME)/android/android-sdk
 
 PLATFORM  := android-17
