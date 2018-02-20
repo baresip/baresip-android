@@ -11,6 +11,15 @@ as a standalone console application, or as a powerful
 toolkit (libbaresip) for 3rd-party applications.
 
 
+## Supported NDKs
+
+| NDK: | Supported: |
+|------|------------|
+| r16  | In Progress|
+| r15  | Yes        |
+| r14  | Yes        |
+| r13  | No        |
+
 
 
 ## Step 1 - download source code
