@@ -164,6 +164,7 @@ clean:
 
 OPENSSL_FLAGS := \
 	threads \
+	-fPIE -fPIC -pie \
 	\
 	no-async \
 	no-bf \
@@ -206,7 +207,10 @@ opus:
 		rm -rf include_opus && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
-		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="-march=armv7-a" && \
+		./configure --host=arm-linux-androideabi --disable-shared \
+			--disable-doc \
+			--disable-extra-programs \
+			CFLAGS="$(CFLAGS)" && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		make && \
@@ -219,7 +223,7 @@ speex:
 	cd speex && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
-		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="-march=armv7-a" && \
+		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="$(CFLAGS)" && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		make
@@ -230,11 +234,11 @@ zrtp:
 		./bootstrap.sh && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
-		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
+		./configure --host=arm-linux-androideabi CFLAGS="$(CFLAGS)" && \
 		cd third_party/bnlib/ && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
-		./configure --host=arm-linux-androideabi CFLAGS="-march=armv7-a" && \
+		./configure --host=arm-linux-androideabi CFLAGS="$(CFLAGS)" && \
 		cd ../.. && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
