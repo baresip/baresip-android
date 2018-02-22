@@ -56,7 +56,6 @@ CFLAGS    := \
 	-isystem $(SYSROOT)/usr/include/ \
 	-I$(PWD)/openssl/include \
 	-I$(PWD)/opus/include_opus \
-	-I$(PWD)/speex/include \
 	-I$(PWD)/libzrtp/include \
 	-I$(PWD)/libzrtp/third_party/bnlib \
 	-I$(PWD)/libzrtp/third_party/bgaes \
@@ -66,7 +65,6 @@ CFLAGS    := \
 LFLAGS    := -L$(SYSROOT)/usr/lib/ \
 	-L$(PWD)/openssl \
 	-L$(PWD)/opus/.libs \
-	-L$(PWD)/speex/libspeex/.libs \
 	-L$(PWD)/libzrtp \
 	-L$(PWD)/libzrtp/third_party/bnlib \
 	-fPIE -pie
@@ -100,10 +98,6 @@ EXTRA_MODULES := g711 stdio opensles dtls_srtp echo aubridge
 
 ifneq ("$(wildcard $(PWD)/opus)","")
 	EXTRA_MODULES := $(EXTRA_MODULES) opus
-endif
-
-ifneq ("$(wildcard $(PWD)/speex)","")
-	EXTRA_MODULES := $(EXTRA_MODULES) speex
 endif
 
 ifneq ("$(wildcard $(PWD)/libzrtp)","")
@@ -217,16 +211,6 @@ opus:
 		mkdir include_opus && \
 		mkdir include_opus/opus && \
 		cp include/* include_opus/opus
-
-.PHONY: speex
-speex:
-	cd speex && \
-		CC="$(CC) --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
-		./configure --host=arm-linux-androideabi --disable-shared CFLAGS="$(CFLAGS)" && \
-		CC="$(CC) --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
-		make
 
 .PHONY: zrtp
 zrtp:
