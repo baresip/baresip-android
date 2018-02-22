@@ -271,3 +271,12 @@ retest:		Makefile librem.a libre.a
 	$(ADB) push retest/retest $(TARGET_PATH)/retest
 	$(ADB) push retest/data/. $(TARGET_PATH)/data
 	$(ADB) shell "cd $(TARGET_PATH) && ./retest -r -v"
+
+
+.PHONY: toolchain
+toolchain:
+	$(NDK_PATH)/build/tools/make_standalone_toolchain.py \
+		--arch arm \
+		--api $(API_LEVEL) \
+		--install-dir $(PWD)/toolchain
+
