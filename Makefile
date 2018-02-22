@@ -21,6 +21,10 @@ SDK_PATH  := $(HOME)/android/android-sdk
 API_LEVEL := 21
 PLATFORM  := android-$(API_LEVEL)
 
+
+TRIPLE    := arm-linux-androideabi
+
+
 # Path to install binaries on your Android-device
 TARGET_PATH=/data/local/tmp
 
@@ -40,6 +44,8 @@ endif
 
 # Tools
 SYSROOT   := $(NDK_PATH)/platforms/$(PLATFORM)/arch-arm
+SYSROOT_INC   := $(NDK_PATH)/sysroot
+
 PREBUILT  := $(NDK_PATH)/toolchains/arm-linux-androideabi-4.9/prebuilt
 BIN       := $(PREBUILT)/$(HOST_OS)/bin
 CC        := $(BIN)/arm-linux-androideabi-gcc
@@ -53,7 +59,9 @@ PWD       := $(shell pwd)
 #
 # NOTE: use -isystem to avoid warnings in system header files
 CFLAGS    := \
-	-isystem $(SYSROOT)/usr/include/ \
+	-D__ANDROID_API__=$(API_LEVEL) \
+	-isystem $(SYSROOT_INC)/usr/include/ \
+	-isystem $(SYSROOT_INC)/usr/include/$(TRIPLE) \
 	-I$(PWD)/openssl/include \
 	-I$(PWD)/opus/include_opus \
 	-I$(PWD)/libzrtp/include \
@@ -78,8 +86,8 @@ COMMON_FLAGS := CC=$(CC) \
 		EXTRA_CFLAGS="$(CFLAGS) -DANDROID" \
 		EXTRA_CXXFLAGS="$(CFLAGS) -DANDROID" \
 		EXTRA_LFLAGS="$(LFLAGS)" \
-		SYSROOT=$(SYSROOT)/usr \
-		SYSROOT_ALT= \
+		SYSROOT=$(SYSROOT_INC)/usr \
+		SYSROOT_ALT=$(SYSROOT)/usr \
 		HAVE_LIBRESOLV= \
 		HAVE_RESOLV= \
 		HAVE_PTHREAD=1 \
@@ -87,6 +95,7 @@ COMMON_FLAGS := CC=$(CC) \
 		HAVE_LIBPTHREAD= \
 		HAVE_INET_PTON=1 \
 		HAVE_INET6=1 \
+		HAVE_GETIFADDRS= \
 		PEDANTIC= \
 		OS=linux ARCH=arm \
 		USE_OPENSSL=yes \
@@ -158,6 +167,9 @@ clean:
 
 OPENSSL_FLAGS := \
 	threads \
+	-D__ANDROID_API__=$(API_LEVEL) \
+	-isystem$(SYSROOT_INC)/usr/include \
+	-isystem$(SYSROOT_INC)/usr/include/$(TRIPLE) \
 	-fPIE -fPIC -pie \
 	\
 	no-async \
