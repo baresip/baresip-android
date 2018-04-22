@@ -69,6 +69,7 @@ CFLAGS    := \
 	-I$(PWD)/libzrtp/third_party/bgaes \
 	-march=armv7-a \
 	-fPIE -fPIC \
+	-Werror \
 	-DCONFIG_PATH='\"$(CONFIG_PATH)\"'
 LFLAGS    := -L$(SYSROOT)/usr/lib/ \
 	-L$(PWD)/openssl \
