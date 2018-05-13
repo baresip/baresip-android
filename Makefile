@@ -218,7 +218,7 @@ opus:
 		./configure --host=arm-linux-androideabi --disable-shared \
 			--disable-doc \
 			--disable-extra-programs \
-			CFLAGS="$(CFLAGS)" && \
+			CFLAGS="$(CFLAGS) -Wno-error" && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
 		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
 		make && \
