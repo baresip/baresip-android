@@ -70,7 +70,7 @@ $ make openssl
 
 
 
-## Step 4 - build opus, speex, zrtp (optional)
+## Step 4 - build opus, zrtp (optional)
 
 ```
 $ make opus
