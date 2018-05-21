@@ -15,10 +15,10 @@ toolkit (libbaresip) for 3rd-party applications.
 
 | NDK: | Supported: |
 |------|------------|
-| r16  | In Progress|
+| r16  | Yes        |
 | r15  | Yes        |
 | r14  | Yes        |
-| r13  | No        |
+| r13  | No         |
 
 
 
@@ -27,19 +27,16 @@ toolkit (libbaresip) for 3rd-party applications.
 Download baresip/librem/libre source from creytiv.com [1]
 
 ```
-$ wget http://www.creytiv.com/pub/baresip-0.5.5.tar.gz
-$ wget http://www.creytiv.com/pub/rem-0.5.1.tar.gz
-$ wget http://www.creytiv.com/pub/re-0.5.5.tar.gz
-$ wget http://www.creytiv.com/pub/retest-0.5.1.tar.gz
+$ wget http://www.creytiv.com/pub/baresip-0.5.9.tar.gz
+$ wget http://www.creytiv.com/pub/rem-0.5.3.tar.gz
+$ wget http://www.creytiv.com/pub/re-0.5.8.tar.gz
+$ wget http://www.creytiv.com/pub/retest-0.5.2.tar.gz
 
 $ # .. and download OpenSSL source from openssl.org [2]
-$ wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz
+$ wget https://www.openssl.org/source/openssl-1.1.0h.tar.gz
 
 $ # .. and download Opus source from opus.org [5] (optional)
 $ wget http://downloads.xiph.org/releases/opus/opus-1.1.3.tar.gz
-
-$ # .. and download Speex source from speex.org [6] (optional)
-$ wget http://downloads.xiph.org/releases/speex/speex-1.2rc2.tar.gz
 
 $ # .. and download ZRTP source from github.com [7] (optional)
 $ wget https://github.com/juha-h/libzrtp/archive/master.zip
@@ -57,7 +54,6 @@ symlinks to the source code so that you have a layout like this:
     baresip/
     openssl/
     opus/ (optional)
-    speex/ (optional)
     libzrtp/ (optional)
     re/
     rem/
@@ -78,7 +74,6 @@ $ make openssl
 
 ```
 $ make opus
-$ make speex
 $ make zrtp
 ```
 
@@ -133,5 +128,4 @@ mailing-list [4] and contribute patches here :)
 - [3] http://developer.android.com/tools/sdk/ndk/index.html
 - [4] http://lists.creytiv.com/mailman/listinfo/re-devel
 - [5] http://opus-codec.org
-- [6] http://speex.org
 - [7] https://github.com/juha-h/libzrtp
