@@ -213,13 +213,13 @@ opus:
 	cd opus && \
 		rm -rf include_opus && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		RANLIB="$(RANLIB)" AR="$(AR)" PATH="$(BIN):$(PATH)" \
 		./configure --host=arm-linux-androideabi --disable-shared \
 			--disable-doc \
 			--disable-extra-programs \
 			CFLAGS="$(CFLAGS)" && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		RANLIB="$(RANLIB)" AR="$(AR)" PATH="$(BIN):$(PATH)" \
 		make && \
 		mkdir include_opus && \
 		mkdir include_opus/opus && \
@@ -230,15 +230,15 @@ zrtp:
 	cd libzrtp && \
 		./bootstrap.sh && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		RANLIB="$(RANLIB)" AR="$(AR)" PATH="$(BIN):$(PATH)" \
 		./configure --host=arm-linux-androideabi CFLAGS="$(CFLAGS)" && \
 		cd third_party/bnlib/ && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		RANLIB="$(RANLIB)" AR="$(AR)" PATH="$(BIN):$(PATH)" \
 		./configure --host=arm-linux-androideabi CFLAGS="$(CFLAGS)" && \
 		cd ../.. && \
 		CC="$(CC) --sysroot $(SYSROOT)" \
-		RANLIB=$(RANLIB) AR=$(AR) PATH=$(BIN):$(PATH) \
+		RANLIB="$(RANLIB)" AR="$(AR)" PATH="$(BIN):$(PATH)" \
 		make
 
 emulator:
