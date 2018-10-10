@@ -15,6 +15,8 @@ toolkit (libbaresip) for 3rd-party applications.
 
 | NDK: | Supported: |
 |------|------------|
+| r18  | No         |
+| r17  | Yes        |
 | r16  | Yes        |
 | r15  | Yes        |
 | r14  | Yes        |
